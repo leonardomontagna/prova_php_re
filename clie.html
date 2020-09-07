@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<script type="text/javascript">
+var conn = new WebSocket('ws://192.168.1.5:5050');
+
+conn.onopen = function(e) {
+  console.log("Connection established!");
+};
+
+conn.onmessage = function(e) {
+  console.log(e.data);
+};
+
+function subscribe() {
+    conn.send(JSON.stringify({command: "subscribe"}));
+}
+
+function sendMessage() {
+  var mess= document.getElementById("message").value;
+    console.log("Sending!");
+    conn.send(mess);
+
+}
+</script>
+</head>
+<body>
+<meta charset='UTF-8' />
+
+<div class="chat_wrapper">
+   <div class="message_box" id="message_box"></div>
+   <div class="panel">
+      <input type="text" name="message" id="message" 
+             placeholder="Messaggio" maxlength="80" style="width:60%" />
+      <button id="send-btn" onclick="sendMessage()">Invia</button>
+   </div>
+</div>
+
+</body>
+</html>
